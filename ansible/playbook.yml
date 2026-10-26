@@ -1,0 +1,141 @@
+---
+- name: End-to-End Enterprise AWS Configuration & Nginx Deployment
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Deploy custom landing page with project title and acknowledgments
+      copy:
+        dest: /var/www/html/index.html
+        content: |
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>End-to-End Enterprise AWS Environment</title>
+              <style>
+                  body {
+                      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+                      color: #f8fafc;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      min-height: 100vh;
+                      margin: 0;
+                      padding: 20px;
+                  }
+                  .card {
+                      background: rgba(30, 41, 59, 0.8);
+                      backdrop-filter: blur(12px);
+                      border: 1px solid rgba(255, 255, 255, 0.12);
+                      padding: 40px;
+                      border-radius: 20px;
+                      box-shadow: 0 25px 35px -5px rgba(0, 0, 0, 0.6);
+                      max-width: 650px;
+                      text-align: center;
+                  }
+                  h1 {
+                      color: #38bdf8;
+                      margin-bottom: 8px;
+                      font-size: 1.8rem;
+                      line-height: 1.3;
+                  }
+                  h2 {
+                      color: #94a3b8;
+                      font-size: 1.2rem;
+                      font-weight: 500;
+                      margin-top: 0;
+                      margin-bottom: 24px;
+                  }
+                  .divider {
+                      height: 1px;
+                      background: rgba(255, 255, 255, 0.1);
+                      margin: 20px 0;
+                  }
+                  .thanks-box {
+                      background: rgba(15, 23, 42, 0.6);
+                      border-radius: 12px;
+                      padding: 16px;
+                      margin-bottom: 20px;
+                      border: 1px dashed rgba(56, 189, 248, 0.3);
+                  }
+                  .thanks-text {
+                      color: #cbd5e1;
+                      font-size: 1.05rem;
+                      margin: 6px 0;
+                  }
+                  .thanks-text strong {
+                      color: #38bdf8;
+                  }
+                  .author-box {
+                      margin: 20px 0;
+                  }
+                  .author-title {
+                      font-size: 0.9rem;
+                      color: #64748b;
+                      text-transform: uppercase;
+                      letter-spacing: 1.5px;
+                  }
+                  .author-name {
+                      font-size: 1.6rem;
+                      color: #f8fafc;
+                      font-weight: 700;
+                      margin-top: 4px;
+                  }
+                  .badge {
+                      display: inline-block;
+                      background: #0284c7;
+                      color: white;
+                      padding: 6px 14px;
+                      border-radius: 9999px;
+                      font-weight: 600;
+                      font-size: 0.8rem;
+                      margin: 4px;
+                  }
+                  .status {
+                      margin-top: 24px;
+                      padding: 12px;
+                      background: rgba(16, 185, 129, 0.15);
+                      border: 1px solid #10b981;
+                      border-radius: 8px;
+                      color: #34d399;
+                      font-weight: bold;
+                      font-size: 0.9rem;
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="card">
+                  <h1>End-to-End Enterprise AWS Environment</h1>
+                  <h2>Provisioning using Terraform and Ansible</h2>
+                  
+                  <div class="thanks-box">
+                      <p class="thanks-text">Special Thanks to <strong>Senior Steps</strong></p>
+                      <p class="thanks-text">Special Thanks to <strong>Eng. Gamal Mohamed</strong></p>
+                  </div>
+
+                  <div class="author-box">
+                      <div class="author-title">Implemented By</div>
+                      <div class="author-name">Mikhail Farag</div>
+                  </div>
+
+                  <div class="divider"></div>
+
+                  <div>
+                      <span class="badge">Terraform (IaC)</span>
+                      <span class="badge">Ansible (CM)</span>
+                      <span class="badge">AWS SSM (Keyless)</span>
+                      <span class="badge">Nginx on EC2</span>
+                  </div>
+
+                  <div class="status">
+                      ✓ Infrastructure Provisioned & Configured Automatically
+                  </div>
+              </div>
+          </body>
+          </html>
+        owner: www-data
+        group: www-data
+        mode: '0644'
