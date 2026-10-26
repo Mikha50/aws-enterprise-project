@@ -10,7 +10,7 @@ A fully automated, production-grade DevOps pipeline combining **Infrastructure a
 
 ---
 
-## 🌟 Key Features
+##   Key Features
 
 * **Infrastructure as Code (Terraform):** Automated provisioning of custom VPC (10.0.0.0/16), Public Subnet (10.0.1.0/24), Internet Gateway, Route Tables, and Security Groups.
 * **Keyless Zero-Trust Architecture:** Eliminates static SSH keys and avoids opening public SSH ports (Port 22). All server communication and Ansible configuration run through **AWS Systems Manager (SSM)**.
@@ -19,7 +19,7 @@ A fully automated, production-grade DevOps pipeline combining **Infrastructure a
 
 ---
 
-## 🚀 CI/CD Pipeline Stages
+##   CI/CD Pipeline Stages
 
 1. **Checkout Code:** Pulls latest commit from GitHub repository.
 2. **Terraform Execution:** Automatically plans and applies infrastructure changes (`apply`) or tears them down (`destroy`).
@@ -29,7 +29,7 @@ A fully automated, production-grade DevOps pipeline combining **Infrastructure a
 
 ---
 
-## 👨‍💻 Implemented By
+##    Implemented By
 
 * **Author:** Mikhail Farag
 * **Special Thanks:** Senior Steps & Eng. Gamal Mohamed
