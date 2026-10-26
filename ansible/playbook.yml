@@ -4,7 +4,20 @@
   become: yes
 
   tasks:
-    - name: Deploy custom landing page with project title and acknowledgments
+    - name: 1. Update APT cache and apply security updates
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+        upgrade: dist
+
+    - name: 2. Install Nginx web server
+      apt:
+        name:
+          - nginx
+          - curl
+        state: present
+
+    - name: 3. Create a custom production-ready landing page
       copy:
         dest: /var/www/html/index.html
         content: |
@@ -36,24 +49,9 @@
                       max-width: 650px;
                       text-align: center;
                   }
-                  h1 {
-                      color: #38bdf8;
-                      margin-bottom: 8px;
-                      font-size: 1.8rem;
-                      line-height: 1.3;
-                  }
-                  h2 {
-                      color: #94a3b8;
-                      font-size: 1.2rem;
-                      font-weight: 500;
-                      margin-top: 0;
-                      margin-bottom: 24px;
-                  }
-                  .divider {
-                      height: 1px;
-                      background: rgba(255, 255, 255, 0.1);
-                      margin: 20px 0;
-                  }
+                  h1 { color: #38bdf8; margin-bottom: 8px; font-size: 1.8rem; line-height: 1.3; }
+                  h2 { color: #94a3b8; font-size: 1.2rem; font-weight: 500; margin-top: 0; margin-bottom: 24px; }
+                  .divider { height: 1px; background: rgba(255, 255, 255, 0.1); margin: 20px 0; }
                   .thanks-box {
                       background: rgba(15, 23, 42, 0.6);
                       border-radius: 12px;
@@ -61,29 +59,11 @@
                       margin-bottom: 20px;
                       border: 1px dashed rgba(56, 189, 248, 0.3);
                   }
-                  .thanks-text {
-                      color: #cbd5e1;
-                      font-size: 1.05rem;
-                      margin: 6px 0;
-                  }
-                  .thanks-text strong {
-                      color: #38bdf8;
-                  }
-                  .author-box {
-                      margin: 20px 0;
-                  }
-                  .author-title {
-                      font-size: 0.9rem;
-                      color: #64748b;
-                      text-transform: uppercase;
-                      letter-spacing: 1.5px;
-                  }
-                  .author-name {
-                      font-size: 1.6rem;
-                      color: #f8fafc;
-                      font-weight: 700;
-                      margin-top: 4px;
-                  }
+                  .thanks-text { color: #cbd5e1; font-size: 1.05rem; margin: 6px 0; }
+                  .thanks-text strong { color: #38bdf8; }
+                  .author-box { margin: 20px 0; }
+                  .author-title { font-size: 0.9rem; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; }
+                  .author-name { font-size: 1.6rem; color: #f8fafc; font-weight: 700; margin-top: 4px; }
                   .badge {
                       display: inline-block;
                       background: #0284c7;
@@ -124,6 +104,7 @@
                   <div class="divider"></div>
 
                   <div>
+                      <span class="badge">Jenkins (CI/CD)</span>
                       <span class="badge">Terraform (IaC)</span>
                       <span class="badge">Ansible (CM)</span>
                       <span class="badge">AWS SSM (Keyless)</span>
@@ -131,7 +112,7 @@
                   </div>
 
                   <div class="status">
-                      ✓ Infrastructure Provisioned & Configured Automatically
+                      ✓ Infrastructure Provisioned & Configured Automatically by Jenkins Pipeline
                   </div>
               </div>
           </body>
@@ -139,3 +120,9 @@
         owner: www-data
         group: www-data
         mode: '0644'
+
+    - name: 4. Ensure Nginx service is started and enabled on boot
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
