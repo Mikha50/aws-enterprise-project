@@ -32,4 +32,4 @@ A fully automated, production-grade DevOps pipeline combining **Infrastructure a
 ##    Implemented By
 
 * **Author:** Mikhail Farag
-* **Special Thanks:** Senior Steps & Eng. Gamal Mohamed
+
